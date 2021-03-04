@@ -1,0 +1,26 @@
+import os
+
+def file_remove_same(input_file, output_file):
+    dirpath = os.getcwd() + '/'
+    with open(dirpath + input_file, 'r', encoding='utf-8') as f:
+        with open(dirpath + output_file, 'a', encoding='utf-8') as fp:
+            data = [item.strip() for item in f.readlines()]
+            newdata = list(set(data))
+            fp.writelines([i + '\n' for i in newdata if i])
+    pass
+
+file_remove_same('result.txt', '1.txt')
+
+def func(st):
+    for i in range(1, int(len(st)/2)+1):
+        for j in range (len(st)):
+            if st[j:j+1] == st[j+i:j+2*i]:
+                k = j + i
+                while st[k:k+i] == st[k+i:k+2*i] and k < len(st):
+                    k = k + i
+                st = st[:j]+st[k:]
+    return st
+
+st = '啊啊啊水水水水的顶顶顶顶烦烦烦烦烦烦'
+stnew = func(st)
+print(stnew)

@@ -1,0 +1,50 @@
+import numpy as np
+import pandas as pd
+import os
+import re
+import operator
+
+
+def judgeRepeat(l1,l2):
+    if len(l1) != len(l2):
+        return False
+    else:
+        return operator.eq(l1,l2)
+
+
+def compressed(commentList):
+    l1=[]
+    l2=[]
+    compressList = []
+    for letter in commentList:
+        if len(l1) == 0:
+            l1.append(letter)
+        else:
+            if l1[0] == letter:
+                if len(l2) == 0:
+                    l2.append(letter)
+                else:
+                    if judgeRepeat(l1,l2):
+                        l2.clear()
+                        l2.append(letter)
+                    else:
+                        compressList.extend(l1)
+                        compressList.extend(l2)
+                        l1.clear()
+                        l2.clear()
+                        l1.append(letter)
+            else:
+                if len(l2) == 0:
+                    l1.append(letter)
+                else:
+                    l2.append(letter)
+
+    else:
+        if judgeRepeat(l1,l2):
+            compressList.extend(l1)
+        else:
+            compressList.extend(l1)
+            compressList.extend(l2)
+        l1.clear()
+        l2.clear()
+        return compressList
